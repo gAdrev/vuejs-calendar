@@ -1,5 +1,5 @@
 <template>
-    <div :class="classObject">{{ day.format("D") }}</div>
+    <div :class="classObject" @click="captureClick">{{ day.format("D") }}</div>
 </template>
 
 <script>
@@ -13,6 +13,16 @@ export default {
                 today: isToday,
                 past: this.day.isSameOrBefore(this.$moment(), "day") && !isToday
             }
+        }
+    },
+    methods: {
+        captureClick(event) {
+            const pos = {
+                x: event.clientX,
+                y: event.clientY
+            };
+            this.$store.commit("eventFormPos", pos);
+            this.$store.commit("eventFormActive", true);
         }
     }
 }
