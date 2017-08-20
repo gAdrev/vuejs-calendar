@@ -15,16 +15,26 @@ export default {
             return this.$store.state.currentYear;
         },
         formattedDate() {
-            return this.$moment(`${this.year}-${this.month}-1`, "yyyy-M-D")
+            return this.$moment(`${this.year}-${this.month}-1`, "YYYY-M-D")
                 .format("MMMM YYYY");
         }
     },
     methods: {
         dec() {
-            console.log("dec");
+            if (this.month === 1) {
+                this.$store.commit("setCurrentMonth", 12);
+                this.$store.commit("setCurrentYear", this.year - 1);
+            } else {
+                this.$store.commit("setCurrentMonth", this.month - 1);
+            }
         },
         inc() {
-            console.log("inc");
+            if (this.month === 12) {
+                this.$store.commit("setCurrentYear", this.year + 1);
+                this.$store.commit("setCurrentMonth", 1);
+            } else {
+                this.$store.commit("setCurrentMonth", this.month + 1);
+            }
         }
     }
 }
