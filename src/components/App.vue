@@ -1,6 +1,9 @@
 <template>
     <div>
-        <div v-for="day in days">{{ day }}</div>
+        <div v-for="week in weeks">
+            <div v-for="day in week">{{ day }}</div>
+            <hr />
+        </div>
     </div>
 </template>
 <script>
@@ -13,6 +16,20 @@ export default {
         };
     },
     computed: {
+        weeks() {
+            let weeks = [],
+                week = [];
+
+            for (let day of this.days) {
+                week.push(day);
+                if (week.length === 7) {
+                    weeks.push(week);
+                    week = [];
+                }
+            }
+
+            return weeks;
+        },
         days() {
             // Days in current month
             let days = [],
