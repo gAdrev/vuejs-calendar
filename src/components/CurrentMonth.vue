@@ -1,5 +1,9 @@
 <template>
-    <div>{{ formattedDate }}</div>
+    <div>
+        <div>{{ formattedDate }}</div>
+        <button @click="dec">-</button>
+        <button @click="inc">+</button>
+    </div>
 </template>
 <script>
 export default {
@@ -13,6 +17,14 @@ export default {
         formattedDate() {
             return this.$moment(`${this.year}-${this.month}-1`, "yyyy-M-D")
                 .format("MMMM YYYY");
+        }
+    },
+    methods: {
+        dec() {
+            console.log("dec");
+        },
+        inc() {
+            console.log("inc");
         }
     }
 }
