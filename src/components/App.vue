@@ -20,12 +20,6 @@
 import CalendarDay from "./CalendarDay.vue";
 
 export default {
-    data() {
-        return {
-            month: 8,
-            year: 2017
-        };
-    },
     computed: {
         weeks() {
             let weeks = [],
@@ -40,6 +34,12 @@ export default {
             }
 
             return weeks;
+        },
+        month() {
+            return this.$store.state.currentMonth;
+        },
+        year() {
+            return this.$store.state.currentYear;
         },
         days() {
             // Days in current month
