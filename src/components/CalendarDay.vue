@@ -20,12 +20,7 @@ export default {
             }
         },
         events() {
-            let mockData = [
-                { description: "Event", date: this.$moment() },
-                { description: "Another", date: this.$moment("2017-08-14", "YYYY-MM-DD") },
-                { description: "Third", date: this.$moment() },
-            ];
-            return mockData.filter(event => {
+            return this.$store.state.events.filter(event => {
                 return event.date.isSame(this.day, "day");
             });
         }
