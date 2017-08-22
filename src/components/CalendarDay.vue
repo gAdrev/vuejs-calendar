@@ -23,8 +23,8 @@ export default {
             }
         },
         events() {
-            return this.$store.state.events.filter(event => {
-                return event.date.isSame(this.day, "day");
+            return this.$store.state.events.filter(evt => {
+                return evt.date.isSame(this.day, "day");
             });
         }
     },

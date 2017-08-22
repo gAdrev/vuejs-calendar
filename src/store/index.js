@@ -14,11 +14,7 @@ export default new Vuex.Store({
     eventFormPosX: 0,
     eventFormPosY: 0,
     eventFormActive: false,
-    events: [
-        { description: "Event", date: moment() },
-        { description: "Another", date: moment("2017-08-14", "YYYY-MM-DD") },
-        { description: "Third", date: moment() },
-    ],
+    events: [],
     eventFormDate: moment()
   },
   mutations: {
@@ -36,16 +32,28 @@ export default new Vuex.Store({
       state.eventFormActive = payload;
     },
     addEvent(state, payload) {
-      let event = {
-        description: payload,
-        date: state.eventFormDate
-      };
-      state.events.push(event);
-
-      Axios.post("/add_event", event);
+      state.events.push(payload);
     },
     eventFormDate(state, payload) {
       state.eventFormDate = payload;
+    }
+  },
+  actions: {
+    addEvent(context, payload) {
+      return new Promise((resolve, rejecet) => {
+        let obj = {
+          description: payload,
+          date: context.state.eventFormDate
+        };
+        Axios.post("/add_event", obj).then(response => {
+          if (response.status === 200) {
+            context.commit("addEvent", obj);
+            resolve();
+          } else {
+            reject();
+          }
+        });
+      });
     }
   }
 });
